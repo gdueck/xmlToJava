@@ -327,11 +327,8 @@ for the element that introduces the map data.
 * This example would also work if the root element was discarded, making the
 map element into the root.
 ### User-defined simple class
-Any class can be placed in the simple category by adding a `valueOf` factor method.
-All wrapper classes have such a method. All primitive classes are promoted to their wrapper
-so they will behave as Simple. finally, String is a special case that is automatically 
-provided
-with a custom wrapper.
+Any class can be placed in the simple category by adding a `valueOf` factory method.
+All wrapper classes have such a method.
 
 Here is an example of a Vector class treated as a simple class.
 ```java
