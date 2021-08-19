@@ -96,33 +96,44 @@ public class XmlToJava {
     private Hashtable<String, Alias<?>> aliasTable = new Hashtable<>();
 
     /**
-     * Constructs an XmlToJava.
+     * Constructs an XML reader.
      */
     public XmlToJava() {
     }
 
+    /**
+     * Constructs an XML reader and sets its echoOptions.
+     * @param echoOptions controls whether anonymous instances are logged as they are created
+     */
     public XmlToJava(boolean echoOptions) {
         this.echoOptions = echoOptions;
     }
 
     /**
-     * Adds options classes to the reader
+     * Associates an aliased element with a class.
      *
      * @param alias the element in the xml file that maps onto this class
-     * @param cls  the class whose static fields will be populated
+     * @param rawClass  the class whose static fields will be populated
      */
-    public XmlToJava add(String alias, Class<?> cls) {
-        aliasTable.put(alias, new Alias(null, cls, cls.getTypeParameters()));
-        return this;
-    }
-
-    public <T> XmlToJava add(String alias, Class<T> cls, Class<?> ... parameters) {
-        add(alias, null, cls, parameters);
+    public XmlToJava add(String alias, Class<?> rawClass) {
+        aliasTable.put(alias, new Alias(null, rawClass, rawClass.getTypeParameters()));
         return this;
     }
 
     /**
-     * Adds options classes to the reader with a consumer
+     * Associates an aliased element with a class and generic parameters
+     * @param alias the element in the xml file that maps onto this class
+     * @param rawClass the class whose static fields will be populated
+     * @param paramClasses extra generic parameters or maps and collections
+     * @return
+     */
+    public  XmlToJava add(String alias, Class<?> rawClass, Class<?> ... paramClasses) {
+        add(alias, null, rawClass, paramClasses);
+        return this;
+    }
+
+    /**
+     * Associates an aliased element with a class, an instance callback and generic parameters
      *
      * @param <T>      a generic parameter inferred from rawClass
      * @param alias     the element in the xml file that maps onto this class
@@ -131,11 +142,6 @@ public class XmlToJava {
      * @return
      */
     public <T> XmlToJava add(String alias, Consumer<T> consumer, Class<T> rawClass, Class<?>... parameters) {
-        aliasTable.put(alias, new Alias(consumer, rawClass, parameters));
-        return this;
-    }
-
-    public <T> XmlToJava add(String alias, Consumer<T> consumer, Class<T> rawClass, Type... parameters) {
         aliasTable.put(alias, new Alias(consumer, rawClass, parameters));
         return this;
     }
