@@ -33,16 +33,16 @@ element must contain a parseable representation of the field's type category.
 subelements are collection items; the actual name of the subelement is
 ignored but the instance is added to the array.
 * For map elements, e.g. Hashtable, subelements contain map-entry items.
-The name of a map-entry 
+The name
 of each subelement
-is used as a key (simple) and
+is used as a key (this inherently restricts its type to simple) and
 the instance of the subelement is used as value which again has a type category.
 * For field elements, the name of a field item is matched to a field within
 the containing aggregate, the type is taken from the field's class and the instance
 is assigned to the field.
 * Anonymous instances are passed to a consumer.
 ## Design Notes
-* An single xml file can contain data destined for more than one instance and
+* A single xml file can contain data destined for more than one instance and
 conforming to more than one class.
 * Class definitions and their instances can be scattered throughout
 the program source for reasons of modularity.
