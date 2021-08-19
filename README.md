@@ -78,10 +78,9 @@ class Test {}
     private static boolean flag;
     
     public static void main(String ... args) {
-        System.out.println("---test10");
         new XmlToJava()
         .add("flag", b->flag = b, Boolean.class)
-        .load(new File("test10.xml"));
+        .load(new File("test.xml"));
         System.out.println(String.format("flag=%s", flag));
     }
 }
@@ -90,7 +89,7 @@ class Test {}
 but here the three-argument
 form takes alias, consumer and raw class.
 * When XmlToJava sees &lt;flag>, it uses the Boolean class. The 
-* Boolean.valueOf creates 
+Boolean.valueOf method creates 
 a value from the text content of &lt;flag>.
 ### Anonymous root
 In this example, because the document root has an alias (Boolean) it
@@ -159,7 +158,7 @@ but has a setter.
 in a public log. (`@Hidden` is in the same package as `XmlToJava`).
 * `enumVar` is simple because `EnumList` has a `valueOf` method.
 
-###Collection Example
+### Collection Example
 A class that contains a collection
 ```java
 public class ContainsArray {
@@ -202,6 +201,7 @@ was changed to `HashSet<Integer>`.
 ### Anonymous collection example
 The `xml` shown here requires a type for the anonymous instance denoted
 by `<list>`.
+
 XML
 ```xml
 <options>
@@ -224,7 +224,7 @@ If the intent is to create a collection, the Java code would look like this.
 * This is equivalent to `ArrayList<Integer>`.
 * Given that the document root can be anonymous, this example would run the same
 if the options element was discarded leaving the list element at the root.
-###Map of simple class
+### Map of simple class
 Similar to the example for Collections, this example has a 
 class with a Hashtable field.
 
@@ -291,7 +291,7 @@ If the value of a map is not a simple class, it is wrapped in its own elements
     </containsMap>
 </options>
 ```
-###Anonymous map of non-simple class
+### Anonymous map of non-simple class
 In this example, a map of non-simple class is read from the anonymous
 level of an xml file.
 ```java
@@ -326,7 +326,7 @@ for the element that introduces the map data.
 ```
 * This example would also work if the root element was discarded, making the
 map element into the root.
-###User-defined simple class
+### User-defined simple class
 Any class can be placed in the simple category by adding a `valueOf` factor method.
 All wrapper classes have such a method. All primitive classes are promoted to their wrapper
 so they will behave as Simple. finally, String is a special case that is automatically 
